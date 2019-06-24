@@ -26,8 +26,18 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  PageController _pageController = PageController();
+
+  double currentPage = 0;
+
   @override
   Widget build(BuildContext context) {
+    _pageController.addListener(() {
+      setState(() {
+        currentPage = _pageController.page;
+      });
+    });
+
     return Scaffold(
       body: Stack(
         children: <Widget>[
@@ -52,7 +62,7 @@ class _MyHomePageState extends State<MyHomePage> {
               context: context,
               builder: (BuildContext context) {
                 return Dialog(
-                    child: AddTaskPage(),
+                    child: currentPage == 1 ? AddEventPage() : AddTaskPage(),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(12))));
               });
@@ -80,7 +90,7 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  Column _mainContent(BuildContext context) {
+  Widget _mainContent(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -96,7 +106,11 @@ class _MyHomePageState extends State<MyHomePage> {
           padding: const EdgeInsets.all(24.0),
           child: _button(context),
         ),
-        Expanded(child: EventPage())
+        Expanded(
+            child: PageView(
+          controller: _pageController,
+          children: <Widget>[TaskPage(), EventPage()],
+        ))
       ],
     );
   }
@@ -106,21 +120,38 @@ class _MyHomePageState extends State<MyHomePage> {
       children: <Widget>[
         Expanded(
             child: CustomButton(
-          onPressed: () {},
+          onPressed: () {
+            _pageController.previousPage(
+                duration: Duration(milliseconds: 500),
+                curve: Curves.bounceInOut);
+          },
           buttonText: "Tasks",
-          color: Theme.of(context).accentColor,
-          textColor: Colors.white,
+          color:
+              currentPage < 0.5 ? Theme.of(context).accentColor : Colors.white,
+          textColor:
+              currentPage < 0.5 ? Colors.white : Theme.of(context).accentColor,
+          borderColor: currentPage < 0.5
+              ? Colors.transparent
+              : Theme.of(context).accentColor,
         )),
         SizedBox(
           width: 32,
         ),
         Expanded(
             child: CustomButton(
-          onPressed: () {},
+          onPressed: () {
+            _pageController.nextPage(
+                duration: Duration(milliseconds: 500),
+                curve: Curves.bounceInOut);
+          },
           buttonText: "Events",
-          color: Colors.white,
-          textColor: Theme.of(context).accentColor,
-          borderColor: Theme.of(context).accentColor,
+          color:
+              currentPage > 0.5 ? Theme.of(context).accentColor : Colors.white,
+          textColor:
+              currentPage > 0.5 ? Colors.white : Theme.of(context).accentColor,
+          borderColor: currentPage > 0.5
+              ? Colors.transparent
+              : Theme.of(context).accentColor,
         ))
       ],
     );
