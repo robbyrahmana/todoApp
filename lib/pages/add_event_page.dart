@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:todoapp/widgets/custom_button.dart';
+import 'package:todoapp/widgets/custom_date_time_picker.dart';
+import 'package:todoapp/widgets/custom_modal_action_button.dart';
 import 'package:todoapp/widgets/custom_textfield.dart';
 
 class AddEventPage extends StatefulWidget {
@@ -52,56 +53,27 @@ class _AddEventPageState extends State<AddEventPage> {
           SizedBox(height: 12),
           CustomTextField(labelText: 'Enter description'),
           SizedBox(height: 12),
-          _dateTimePicker(Icons.date_range, _pickDate, _selectedDate),
-          _dateTimePicker(Icons.access_time, _pickTime, _selectedTime),
+          CustomDateTimePicker(
+            icon: Icons.date_range,
+            onPressed: _pickDate,
+            value: _selectedDate,
+          ),
+          CustomDateTimePicker(
+            icon: Icons.access_time,
+            onPressed: _pickTime,
+            value: _selectedTime,
+          ),
           SizedBox(
             height: 24,
           ),
-          _actionButton(context)
+          CustomModalActionButton(
+            onClose: () {
+              Navigator.of(context).pop();
+            },
+            onSave: () {},
+          )
         ],
       ),
-    );
-  }
-
-  Widget _dateTimePicker(IconData icon, VoidCallback onPressed, String value) {
-    return FlatButton(
-      padding: EdgeInsets.zero,
-      onPressed: onPressed,
-      child: Padding(
-        padding: const EdgeInsets.only(left: 12.0),
-        child: Row(
-          children: <Widget>[
-            Icon(icon, color: Theme.of(context).accentColor, size: 30),
-            SizedBox(
-              width: 12,
-            ),
-            Text(
-              value,
-              style: TextStyle(fontSize: 14),
-            )
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _actionButton(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: <Widget>[
-        CustomButton(
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-          buttonText: "Close",
-        ),
-        CustomButton(
-          onPressed: () {},
-          buttonText: "Save",
-          color: Theme.of(context).accentColor,
-          textColor: Colors.white,
-        )
-      ],
     );
   }
 }
