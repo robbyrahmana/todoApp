@@ -52,12 +52,12 @@ class _AddTaskPageState extends State<AddTaskPage> {
           CustomTextField(labelText: 'Enter task name'),
           SizedBox(height: 12),
           CustomDateTimePicker(
-            iconData: Icons.date_range,
+            icon: Icons.date_range,
             onPressed: _pickDate,
             value: _selectedDate,
           ),
           CustomDateTimePicker(
-            iconData: Icons.access_time,
+            icon: Icons.access_time,
             onPressed: _pickTime,
             value: _selectedTime,
           ),

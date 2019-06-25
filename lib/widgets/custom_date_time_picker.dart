@@ -2,13 +2,11 @@ import 'package:flutter/material.dart';
 
 class CustomDateTimePicker extends StatelessWidget {
   final VoidCallback onPressed;
-  final IconData iconData;
+  final IconData icon;
   final String value;
 
   CustomDateTimePicker(
-      {@required this.onPressed,
-      @required this.iconData,
-      @required this.value});
+      {@required this.onPressed, @required this.icon, @required this.value});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +17,7 @@ class CustomDateTimePicker extends StatelessWidget {
         padding: const EdgeInsets.only(left: 12.0),
         child: Row(
           children: <Widget>[
-            Icon(iconData, color: Theme.of(context).accentColor, size: 30),
+            Icon(icon, color: Theme.of(context).accentColor, size: 30),
             SizedBox(
               width: 12,
             ),
