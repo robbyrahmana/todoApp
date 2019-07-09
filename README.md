@@ -1,8 +1,8 @@
-### Getting Started
+# Getting Started
 
 This project called To-do List App
 
-## Command
+# Command
 
 #### Run flutter application
 ```bat
@@ -13,7 +13,7 @@ flutter emulators --launch flutter
 flutter packages pub run build_runner build
 ```
 
-## Plugins
+# Plugins
 
 - [moor_flutter](https://pub.dev/packages/moor_flutter)
 - [intl](https://pub.dev/packages/intl)
