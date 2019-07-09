@@ -12,6 +12,10 @@ flutter emulators --launch flutter
 ```bat
 flutter packages pub run build_runner build
 ```
+#### Build
+```bat
+flutter build apk
+```
 
 # Plugins
 
