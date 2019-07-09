@@ -6,7 +6,7 @@ This project called To-do List App
 
 #### Run flutter application
 ```bat
-flutter emulators --launch flutter
+flutter emulators --launch <emulator name>
 ````
 #### Generate MOOR
 ```bat
