@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:todoapp/model/database.dart';
+import 'package:todoapp/model/todo.dart';
 import 'package:todoapp/widgets/custom_date_time_picker.dart';
 import 'package:todoapp/widgets/custom_modal_action_button.dart';
 import 'package:todoapp/widgets/custom_textfield.dart';
+import 'package:intl/intl.dart';
+import 'package:toast/toast.dart';
 
 class AddTaskPage extends StatefulWidget {
   @override
@@ -9,8 +13,9 @@ class AddTaskPage extends StatefulWidget {
 }
 
 class _AddTaskPageState extends State<AddTaskPage> {
-  String _selectedDate = 'Pick date';
-  String _selectedTime = 'Pick time';
+  DateTime _selectedDate = DateTime.now();
+
+  final _textTaskController = TextEditingController();
 
   Future _pickDate() async {
     DateTime datepick = await showDatePicker(
@@ -20,22 +25,13 @@ class _AddTaskPageState extends State<AddTaskPage> {
         lastDate: new DateTime.now().add(Duration(days: 365)));
     if (datepick != null)
       setState(() {
-        _selectedDate = datepick.toString();
+        _selectedDate = datepick;
       });
-  }
-
-  Future _pickTime() async {
-    TimeOfDay timepick = await showTimePicker(
-        context: context, initialTime: new TimeOfDay.now());
-    if (timepick != null) {
-      setState(() {
-        _selectedTime = timepick.toString();
-      });
-    }
   }
 
   @override
   Widget build(BuildContext context) {
+    _textTaskController.clear();
     return Padding(
       padding: const EdgeInsets.all(24.0),
       child: Column(
@@ -49,17 +45,13 @@ class _AddTaskPageState extends State<AddTaskPage> {
           SizedBox(
             height: 24,
           ),
-          CustomTextField(labelText: 'Enter task name'),
+          CustomTextField(
+              labelText: 'Enter task name', controller: _textTaskController),
           SizedBox(height: 12),
           CustomDateTimePicker(
             icon: Icons.date_range,
             onPressed: _pickDate,
-            value: _selectedDate,
-          ),
-          CustomDateTimePicker(
-            icon: Icons.access_time,
-            onPressed: _pickTime,
-            value: _selectedTime,
+            value: new DateFormat("dd-MM-yyyy").format(_selectedDate),
           ),
           SizedBox(
             height: 24,
@@ -68,7 +60,23 @@ class _AddTaskPageState extends State<AddTaskPage> {
             onClose: () {
               Navigator.of(context).pop();
             },
-            onSave: () {},
+            onSave: () {
+              if (_textTaskController.text == "") {
+                Toast.show("Please check your data", context,
+                    duration: Toast.LENGTH_SHORT, gravity: Toast.BOTTOM);
+              } else {
+                Database()
+                    .insertTodoEntries(new TodoData(
+                        date: _selectedDate,
+                        time: DateTime.now(),
+                        isFinish: false,
+                        task: _textTaskController.text,
+                        description: "",
+                        todoType: TodoType.TYPE_TASK.index,
+                        id: null))
+                    .whenComplete(() => Navigator.of(context).pop());
+              }
+            },
           )
         ],
       ),
