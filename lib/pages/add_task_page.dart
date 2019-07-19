@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:todoapp/model/database.dart';
 import 'package:todoapp/model/todo.dart';
 import 'package:todoapp/widgets/custom_date_time_picker.dart';
@@ -31,6 +32,8 @@ class _AddTaskPageState extends State<AddTaskPage> {
 
   @override
   Widget build(BuildContext context) {
+    var provider = Provider.of<Database>(context);
+
     _textTaskController.clear();
     return Padding(
       padding: const EdgeInsets.all(24.0),
@@ -65,7 +68,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
                 Toast.show("Please check your data", context,
                     duration: Toast.LENGTH_SHORT, gravity: Toast.BOTTOM);
               } else {
-                Database()
+                provider
                     .insertTodoEntries(new TodoData(
                         date: _selectedDate,
                         time: DateTime.now(),

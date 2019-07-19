@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:todoapp/model/database.dart';
 import 'package:todoapp/model/todo.dart';
 import 'package:intl/intl.dart';
@@ -10,28 +11,36 @@ class TaskPage extends StatefulWidget {
 }
 
 class _TaskPageState extends State<TaskPage> {
+  Database provider;
+
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder(
-      stream: Database().getTodoByType(TodoType.TYPE_TASK.index),
-      builder: (context, snapshot) {
-        if (snapshot.hasError) print(snapshot.error);
-        if (snapshot.data == null) {
-          return Center(
-            child: CircularProgressIndicator(),
-          );
+    provider = Provider.of<Database>(context);
+
+    return StreamProvider.value(
+      value: provider.getTodoByType(TodoType.TYPE_TASK.index),
+      updateShouldNotify: (List<TodoData> previous, List<TodoData> current) {
+        if (previous != null && current != null) {
+          return previous.length != current.length || previous != current;
         } else {
-          return ListView.builder(
-            padding: const EdgeInsets.all(0),
-            itemCount: snapshot.data.length,
-            itemBuilder: (context, index) {
-              return snapshot.data[index].isFinish
-                  ? _taskComplete(snapshot.data[index].task)
-                  : _taskUncomplete(snapshot.data[index]);
-            },
-          );
+          return true;
         }
       },
+      child: Consumer<List<TodoData>>(builder: (context, _dataList, child) {
+        return _dataList == null
+            ? Center(
+                child: CircularProgressIndicator(),
+              )
+            : ListView.builder(
+                padding: const EdgeInsets.all(0),
+                itemCount: _dataList.length,
+                itemBuilder: (context, index) {
+                  return _dataList[index].isFinish
+                      ? _taskComplete(_dataList[index].task)
+                      : _taskUncomplete(_dataList[index]);
+                },
+              );
+      }),
     );
   }
 
@@ -69,7 +78,7 @@ class _TaskPageState extends State<TaskPage> {
                       CustomButton(
                         buttonText: "Complete",
                         onPressed: () {
-                          Database()
+                          provider
                               .completeTodoEntries(data.id)
                               .whenComplete(() => Navigator.of(context).pop());
                         },
@@ -114,7 +123,7 @@ class _TaskPageState extends State<TaskPage> {
                       CustomButton(
                         buttonText: "Delete",
                         onPressed: () {
-                          Database()
+                          provider
                               .deleteTodoEntries(data.id)
                               .whenComplete(() => Navigator.of(context).pop());
                         },
