@@ -21,4 +21,4 @@ flutter build apk
 
 - [moor_flutter](https://pub.dev/packages/moor_flutter)
 - [intl](https://pub.dev/packages/intl)
-- [toast](https://pub.dev/packages/toast)
+- [provider](https://pub.dev/packages/provider)
