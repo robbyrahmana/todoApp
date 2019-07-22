@@ -9,6 +9,16 @@
 .history
 .svn/
 
+# Files and directories created by pub
+.dart_tool/
+android/
+build/
+ios/
+.packages
+
+# Remove the following pattern if you wish to check in your lock file
+pubspec.lock
+
 # IntelliJ related
 *.iml
 *.ipr
