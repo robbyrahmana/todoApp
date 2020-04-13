@@ -2,6 +2,13 @@
 
 This project called To-do List App
 
+## Screenshots
+
+||||
+|--|--|--|
+| ![tasklist](./docs/task_lists.png) | ![add_task](./docs/add_task.png) |![delete_task](./docs/delete_task.png) |
+| ![eventlist](./docs/event_list.png) | ![add_event](./docs/add_event.png) |![delete_event](./docs/empty_task_list.png) |
+
 # Command
 
 #### Run flutter application
