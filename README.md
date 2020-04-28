@@ -5,6 +5,15 @@
 
 An elegant Todo and Event organisation app built with Flutter
 
+## Screenshots
+
+||||
+|--|--|--|
+| ![tasklist](./docs/task_lists.png) | ![add_task](./docs/add_task.png) |![delete_task](./docs/delete_task.png) |
+| ![eventlist](./docs/event_list.png) | ![add_event](./docs/add_event.png) |![delete_event](./docs/empty_task_list.png) |
+
+# Command
+
 ## Commands
 
 ### Install dependencies
