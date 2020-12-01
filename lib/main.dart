@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:todoapp/model/database.dart';
-import 'package:todoapp/pages/add_event_page.dart';
-import 'package:todoapp/pages/add_task_page.dart';
-import 'package:todoapp/pages/event_page.dart';
-import 'package:todoapp/pages/task_page.dart';
-import 'package:todoapp/widgets/custom_button.dart';
+import 'package:todoApp/model/database.dart';
+import 'package:todoApp/pages/add_event_page.dart';
+import 'package:todoApp/pages/add_task_page.dart';
+import 'package:todoApp/pages/event_page.dart';
+import 'package:todoApp/pages/task_page.dart';
+import 'package:todoApp/widgets/custom_button.dart';
 
 void main() => runApp(MyApp());
 
@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-      providers: [ChangeNotifierProvider<Database>(builder: (_) => Database())],
+      providers: [ChangeNotifierProvider<Database>(create: (_) => Database())],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',

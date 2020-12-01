@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:todoapp/model/database.dart';
-import 'package:todoapp/model/todo.dart';
-import 'package:todoapp/widgets/custom_date_time_picker.dart';
-import 'package:todoapp/widgets/custom_modal_action_button.dart';
-import 'package:todoapp/widgets/custom_textfield.dart';
+import 'package:todoApp/model/database.dart';
+import 'package:todoApp/model/todo.dart';
+import 'package:todoApp/widgets/custom_date_time_picker.dart';
+import 'package:todoApp/widgets/custom_modal_action_button.dart';
+import 'package:todoApp/widgets/custom_textfield.dart';
 
 class AddTaskPage extends StatefulWidget {
   @override

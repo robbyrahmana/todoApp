@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:todoapp/widgets/custom_date_time_picker.dart';
-import 'package:todoapp/widgets/custom_modal_action_button.dart';
-import 'package:todoapp/widgets/custom_textfield.dart';
+import 'package:todoApp/widgets/custom_date_time_picker.dart';
+import 'package:todoApp/widgets/custom_modal_action_button.dart';
+import 'package:todoApp/widgets/custom_textfield.dart';
 
 class AddEventPage extends StatefulWidget {
   @override

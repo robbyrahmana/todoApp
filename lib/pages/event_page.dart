@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:todoapp/widgets/custom_icon_decoration.dart';
+import 'package:todoApp/widgets/custom_icon_decoration.dart';
 
 class EventPage extends StatefulWidget {
   @override
